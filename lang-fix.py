@@ -50,7 +50,7 @@ def fix_lang(template: mwparserfromhell.nodes.template.Template) -> bool:
 			modified = True
 	return modified
 
-def fix_page(page_title: str):
+def fix_page(page_title: str, dryRun = True):
 	# read content
 	logging.info ('Checking: ' + page_title)
 	print ('Checking: ' + page_title)
@@ -85,10 +85,21 @@ def fix_page(page_title: str):
 
 		# save with description
 		desc = f'{desc_prefix} ({fix_count_lang}).'
-		logging.info(f'Save "{page.title()}"\n{desc}')
-		print(f'Save "{page.title()}"\n{desc}')
-		#page.save()
+		if dryRun:
+			logging.info(f'Dry-Save "{page.title()}"\n{desc}')
+			print(f'Dry-Save "{page.title()}"\n{desc}')
+		else:
+			logging.info(f'Save "{page.title()}"\n{desc}')
+			print(f'Save "{page.title()}"\n{desc}')
+			page.save(desc)
 
 # exec
 initdir(output_path)
-fix_page(test_page_title)
+#fix_page(test_page_title)
+# copy([...document.querySelectorAll('.mw-search-results a')].map(el=>el.href.replace(/^http.+\//, '')))
+pages = [
+  "Spaso",
+]
+for page_title in pages:
+	fix_page(page_title, dryRun=True)
+	#fix_page(page_title, dryRun=False)
