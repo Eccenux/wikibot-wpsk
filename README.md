@@ -9,7 +9,7 @@ Don't run scripts unless you have time fix things later.
 Scripts use globally installed Pywikibot (PWB). You must install and configure it. 
 
   - You should have a bot user.
-  - Install Python (Tested with Python 3.10).
+  - Install Python (tested with Python 3.10).
   - Install PWB with `mwparserfromhell`.
   - Prepare auth in `user-config.py` and `user-password.py`.
   
@@ -19,7 +19,7 @@ Check if pwb is working and get some info:
 ```
 pwb -help
 ```
-# Modules
+## Modules
 
 ```
 git submodule add "https://github.com/Eccenux/wikibot-utils.git" "utils"

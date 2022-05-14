@@ -7,13 +7,13 @@
 	"commands": [
 		// Note, F5 on a py file should work as well.
 
-		// {
-		// 	"text": "Run: wp:sk - lang-fix",
-		// 	"color": "lightgreen",
-		// 	"commandType": "exec",
-		// 	"command": "pwb wp-sk-lang-fix",
-		// 	"priority": 0
-		// },
+		{
+			"text": "Run: lang-fix",
+			"color": "lightgreen",
+			"commandType": "palette",
+			"command": "workbench.action.tasks.runTask|lang-fix",
+			"priority": 0
+		},
 
 		// Pywikibot help
 		// see also: https://www.mediawiki.org/wiki/Manual:Pywikibot/Global_Options

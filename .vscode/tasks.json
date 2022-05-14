@@ -3,15 +3,15 @@
 	// for the documentation about the tasks.json format
 	"version": "2.0.0",
 	"tasks": [
-		// {
-		// 	"label": "arch-talk-tech",
-		// 	"type": "shell",
-		// 	"command": "pwb arch-talk-tech",
-		// 	"options": {
-		// 		"cwd": "${workspaceFolder}/"
-		// 	},
-		// 	"group": "build",
-		// 	"problemMatcher": [],
-		// },
+		{
+			"label": "lang-fix",
+			"type": "shell",
+			"command": "pwb lang-fix",
+			"options": {
+				"cwd": "${workspaceFolder}/"
+			},
+			"group": "build",
+			"problemMatcher": [],
+		},
 	]
 }
