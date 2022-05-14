@@ -1,0 +1,26 @@
+// Requires `gsppvo.vscode-commandbar`.
+// Also: in settings (UI), `files.associations`, add `commandbar.json: jsonc` (json with comments).
+{
+	"skipTerminateQuickPick": true,
+	"skipSwitchToOutput": false,
+	"skipErrorMessage": true,
+	"commands": [
+		// {
+		// 	"text": "Run: wp:sk - lang-fix",
+		// 	"color": "lightgreen",
+		// 	"commandType": "exec",
+		// 	"command": "pwb wp-sk-lang-fix",
+		// 	"priority": 0
+		// },
+
+		{
+			"text": "pwb",
+		 	"tooltip": "pwb help dump",
+			"color": "yellow",
+			"commandType": "exec",
+			"command": "pwb -help",
+		 	"alignment": "right",
+		 	"priority": 3
+		}
+	]
+}

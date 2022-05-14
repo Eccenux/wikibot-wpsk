@@ -1,0 +1,9 @@
+pywikibot.lwp
+throttle.ctrl
+/apicache-py3
+/logs
+/user-config.py
+/user-password.py
+*.pyc
+*.lnk
+/io

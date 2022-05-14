@@ -1,0 +1,27 @@
+{
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"files.exclude": {
+		"**/.git": true, // this is a default value
+		"**/.DS_Store": true, // this is a default value
+
+		"**/node_modules": true, // this excludes all folders named "node_modules"
+
+		"**/*.lnk": true,
+		// exclude single folders from the root of the workspace
+		"apicache-py3": true, 
+		"io": true,
+		"logs": true,
+	},
+	"search.exclude": {
+		// project specific
+		"apicache-py3": true,
+		"io": true,
+		"logs": true,
+
+		// defaults
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/*.code-search": true
+	}
+}
