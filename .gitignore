@@ -7,3 +7,4 @@ throttle.ctrl
 *.pyc
 *.lnk
 /io
+/.priv
