@@ -1,18 +1,19 @@
 {
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
+
+	// "**/a":true -- excludes "a" in any dir (including root)
+	// "a":true -- only excludes "a" in root dir
 	"files.exclude": {
-		"**/.git": true, // this is a default value
-		"**/.DS_Store": true, // this is a default value
-
-		"**/node_modules": true, // this excludes all folders named "node_modules"
-
 		"**/*.lnk": true,
-		// exclude single folders from the root of the workspace
 		"apicache-py3": true, 
-		"io": true,
-		"logs": true,
+
+		// defaults
+		"**/.git": true,
+		"**/.DS_Store": true
 	},
+	
+	// Note, this will _not_ exclude open files
 	"search.exclude": {
 		// project specific
 		"apicache-py3": true,

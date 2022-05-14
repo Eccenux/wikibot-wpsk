@@ -5,6 +5,8 @@
 	"skipSwitchToOutput": false,
 	"skipErrorMessage": true,
 	"commands": [
+		// Note, F5 on a py file should work as well.
+
 		// {
 		// 	"text": "Run: wp:sk - lang-fix",
 		// 	"color": "lightgreen",
@@ -13,9 +15,11 @@
 		// 	"priority": 0
 		// },
 
+		// Pywikibot help
+		// see also: https://www.mediawiki.org/wiki/Manual:Pywikibot/Global_Options
 		{
 			"text": "pwb",
-		 	"tooltip": "pwb help dump",
+		 	"tooltip": "Pywikibot help dump",
 			"color": "yellow",
 			"commandType": "exec",
 			"command": "pwb -help",
