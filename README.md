@@ -19,3 +19,8 @@ Check if pwb is working and get some info:
 ```
 pwb -help
 ```
+# Modules
+
+```
+git submodule add "https://github.com/Eccenux/wikibot-utils.git" "utils"
+```
