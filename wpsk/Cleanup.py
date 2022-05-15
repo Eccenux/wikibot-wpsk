@@ -8,8 +8,10 @@
 
 import pywikibot
 import mwparserfromhell
+from mwparserfromhell.wikicode import Wikicode
 from utils.file import *
 from wpsk.plugins.Cytuj import Cytuj
+from wpsk.plugins.QuotesPl import QuotesPl
 import logging
 
 class Cleanup:
@@ -39,19 +41,33 @@ class Cleanup:
 		print ('Checking: ' + page_title)
 		page = pywikibot.Page(self.site, page_title)
 		page_text: str = page.text
-		page_code: mwparserfromhell.wikicode.Wikicode = mwparserfromhell.parse(page_text)
+		page_code: Wikicode = mwparserfromhell.parse(page_text)
+		fix_count_lang = self._fix_code(page_code)
+		if fix_count_lang > 1:
+			self._apply(page, page_code, fix_count_lang, dryRun)
 
-		# find templates with param
-		# https://mwparserfromhell.readthedocs.io/en/latest/api/mwparserfromhell.nodes.html#module-mwparserfromhell.nodes.template
+	def _fix_code(self,
+		page_code: Wikicode,
+	):
+		# fixes by type
 		fix_count_lang = 0
 		for template in page_code.filter_templates():
-			# before = str(template)
 			modified = Cytuj.fix_lang(template)
 			if modified:
 				fix_count_lang += 1
-				# after = str(template)
-				# print(f'b: {before}\na: {after}')
+		for text_node in page_code.filter_text():
+			modified = QuotesPl.fix(text_node)
+			if modified:
+				fix_count_lang += 1
+		
+		return fix_count_lang
 
+	def _apply(self,
+		page: pywikibot.Page,
+		page_code: Wikicode,
+		fix_count_lang: int,
+		dryRun: True,
+	):
 		page_text = str(page_code)
 		if (page_text.strip() == page.text.strip()):
 			logging.info('Nothing to do.')
@@ -66,12 +82,20 @@ class Cleanup:
 			# cmp
 			save_page_content(page, self.output_path, suffix='_removed')
 
-			# save with description
-			desc = f'{self.desc_prefix} ({fix_count_lang}).'
-			if dryRun:
-				logging.info(f'Dry-Save "{page.title()}"\n{desc}')
-				print(f'Dry-Save "{page.title()}"\n{desc}')
-			else:
-				logging.info(f'Save "{page.title()}"\n{desc}')
-				print(f'Save "{page.title()}"\n{desc}')
-				page.save(desc)
+			# ~save
+			self._save(page, fix_count_lang, dryRun)
+
+	def _save(self,
+		page: pywikibot.Page,
+		fix_count_lang: int,
+		dryRun: True,
+	):
+		# save with description
+		desc = f'{self.desc_prefix} ({fix_count_lang}).'
+		if dryRun:
+			logging.info(f'Dry-Save "{page.title()}"\n{desc}')
+			print(f'Dry-Save "{page.title()}"\n{desc}')
+		else:
+			logging.info(f'Save "{page.title()}"\n{desc}')
+			print(f'Save "{page.title()}"\n{desc}')
+			page.save(desc)
