@@ -1,5 +1,8 @@
 """
 	Korekty szablonu Cytuj.
+
+	See also:
+	https://mwparserfromhell.readthedocs.io/en/latest/api/mwparserfromhell.nodes.html#module-mwparserfromhell.nodes.template
 """
 
 import mwparserfromhell

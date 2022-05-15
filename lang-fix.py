@@ -4,6 +4,7 @@
 	Makes a backup of before-after contents.
 
 	Should maybe later run more sk-like tasks.
+	https://pl.wikipedia.org/wiki/Wikipedysta:Nux/wp_sk.js
 """
 
 import pywikibot
