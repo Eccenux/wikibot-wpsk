@@ -1,5 +1,15 @@
 """
 	Korekty polskich cudzysłowów.
+
+	To nie zadzaiała:
+	"[[Lorem ipsum]]" dolor sit amet, consectetur adipiscing elit. "'''Curabitur ultrices'''" tincidunt sapien
+	W ramach `filter_text` pierwszy cudzysłów będzie niezależny od drugiego. W efekcie jest zupełenie bezsensowny wynik:
+	"[[Lorem ipsum]]„ dolor sit amet, consectetur adipiscing elit. ”'''Curabitur ultrices'''" tincidunt sapien
+
+	Problem jest też z szablonami. Nie można zmieniać nazw grafik wewnątrz szablonu. Np. w infoboksie:
+	|grafika                    = "Chuveirão" na Caverna Timimina.jpg
+	Analogicznie byłby problem ze wszelkimi zmianami tekstowymi np. zmiana minusa tutaj psuje adres grafiki:
+	|grafika                    = 'One of the wards in the hospital at Scutari'. Wellcome M0007724 - restoration, cropped.jpg
 """
 
 # import mwparserfromhell
