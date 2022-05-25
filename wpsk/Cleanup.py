@@ -51,12 +51,20 @@ class Cleanup:
 	):
 		# fixes by type
 		fix_count_lang = 0
+		
+		# templates
 		for template in page_code.filter_templates():
 			modified = Cytuj.fix_lang(template)
 			if modified:
 				fix_count_lang += 1
+		
+		# text
 		for text_node in page_code.filter_text():
-			modified = QuotesPl.fix(text_node)
+			# skip in templates (directly in templates)
+			parent = page_code.get_parent(text_node)
+			if isinstance(parent, mwparserfromhell.nodes.template.Template):
+				continue
+			modified = QuotesPl.fix(text_node, page_code)
 			if modified:
 				fix_count_lang += 1
 		
