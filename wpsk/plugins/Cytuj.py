@@ -26,12 +26,11 @@ class Cytuj:
 		if tpl_name.startswith('cytuj') and template.has(lang_param):
 			logging.info('Template: %s', tpl_name)
 			lang = template.get(lang_param).value.strip()
-			if lang == 'pl' or lang.startswith('pl-'):
-				template.remove(lang_param)
-				logging.info('\tremoved: %s', lang)
-				modified = True
-			if lang.startswith('en-'):
-				template.add(lang_param, 'en')
-				logging.info('\treplaced: %s', lang)
-				modified = True
+			dash = lang.find('-')
+			if dash > 0:
+				l = lang[0:dash]
+				if l == 'pl' or l == 'en' or l == 'fr' or l == 'de':
+					template.add(lang_param, l)
+					logging.info('\treplaced: %s', lang)
+					modified = True
 		return modified
