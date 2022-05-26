@@ -25,11 +25,16 @@ wpsk = Cleanup(site, output_path)
 
 # exec
 Cleanup.initdir(output_path)
-wpsk.fix_page(test_page_title)
-# copy([...document.querySelectorAll('.mw-search-results a')].map(el=>el.href.replace(/^http.+\//, '')))
-# pages = [
-#   "Spaso",
-# ]
-# for page_title in pages:
-# 	fix_page(page_title, dryRun=True)
-# 	#fix_page(page_title, dryRun=False)
+wpsk.fix_page(test_page_title, dryRun=True)
+
+"""
+Getting pages from search results:
+copy([...document.querySelectorAll('.mw-search-results a')].map(el=>el.href.replace(/^http.+\//, '')))
+""
+pages = [
+  "Spaso",
+]
+for page_title in pages:
+ 	wpsk.fix_page(page_title, dryRun=True)
+ 	#wpsk.fix_page(page_title, dryRun=False)
+"""

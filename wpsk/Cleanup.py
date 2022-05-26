@@ -95,7 +95,7 @@ class Cleanup:
 			page.text = page_text
 
 			# cmp
-			save_page_content(page, self.output_path, suffix='_removed')
+			save_page_content(page, self.output_path, suffix='_modified')
 
 			# ~save
 			self._save(page, summary, dryRun)
