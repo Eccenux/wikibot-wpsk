@@ -49,10 +49,20 @@ class Cleanup:
 	def _fix_code(self,
 		page_code: Wikicode,
 	):
-		# fixes by type
 		fix_count = 0
 		summary = []
+
+		fix_count += self._fix_tpls(page_code, summary)
+		fix_count += self._fix_text(page_code, summary)
 		
+		return (fix_count, summary)
+
+	def _fix_tpls(self,
+		page_code: Wikicode,
+		summary: list,
+	):
+		fix_count = 0
+
 		# templates
 		fix_count_lang = 0
 		for template in page_code.filter_templates():
@@ -62,7 +72,15 @@ class Cleanup:
 		if fix_count_lang > 0:
 			fix_count += fix_count_lang
 			summary.append(f'Język w Cytuj* ({fix_count_lang})')
+
+		return fix_count
 		
+	def _fix_text(self,
+		page_code: Wikicode,
+		summary: list,
+	):
+		fix_count = 0
+
 		# text
 		quotesPl = QuotesPl(page_code)
 		for text_node in page_code.filter_text():
@@ -75,7 +93,7 @@ class Cleanup:
 			fix_count += quotesPl.count()
 			summary.append(quotesPl.summary())
 		
-		return (fix_count, summary)
+		return fix_count
 
 	def _apply(self,
 		page: pywikibot.Page,
