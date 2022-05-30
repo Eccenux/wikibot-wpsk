@@ -46,7 +46,7 @@ class QuotesPl:
 		# modifications count (counting as a numer of full quotes replacements)
 		self._count :int = 0
 
-	def summary(self) -> int:
+	def summary(self) -> str:
 		"""
 		Get summary post execution.
 		"""
