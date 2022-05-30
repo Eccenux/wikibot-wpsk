@@ -52,6 +52,12 @@ class QuotesPl(BasePlugin):
 		"""
 		return super().count()
 
+	def can_run_code(code: Wikicode) -> bool:
+		"""
+		Spr. czy są jakieś cudzysłowy do zmiany.
+		"""
+		return str(code).count('"') >= 2
+
 	def run(self, text_node: Text) -> bool:
 		"""
 		Wykonuje korekty.

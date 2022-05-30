@@ -53,8 +53,9 @@ class Cleanup:
 		summary = []
 
 		fix_count += self._fix_tpls(page_code, summary)
-		fix_count += self._fix_text(page_code, summary)
-		
+		if self._can_fix_text(page_code):
+			fix_count += self._fix_text(page_code, summary)
+
 		return (fix_count, summary)
 
 	def _fix_tpls(self,
@@ -75,6 +76,15 @@ class Cleanup:
 
 		return fix_count
 		
+	def _can_fix_text(self,
+		page_code: Wikicode,
+	):
+		text_plugins = [QuotesPl]
+		for plugin in text_plugins:
+			if plugin.can_run_code(page_code):
+				return True
+		return False
+
 	def _fix_text(self,
 		page_code: Wikicode,
 		summary: list,
