@@ -22,11 +22,6 @@ import re
 import logging
 from enum import Enum
 
-# config
-output_path = './io/lang-fix'
-test_page_title = 'Wikipedysta:Nux/test_Cytuj_język'
-desc_prefix = 'MiniSK: Poprawiam język w szablonach cytuj'
-
 class States(Enum):
 	START = 1
 	OPEN = 2
