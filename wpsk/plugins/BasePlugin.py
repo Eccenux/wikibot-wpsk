@@ -13,18 +13,20 @@ class BasePlugin:
 	But, mostly for testing, plugins should be able to work on smaller code fragments as well.
 	"""
 
-	def __init__(self, code: Wikicode):
+	def __init__(self, code: Wikicode, summary: str):
 		# full code we are working on
 		self._code = code
 		# modifications count
 		self._count :int = 0
 
+		# Short text for summary
+		self.i18nSummary = summary
+
 	def summary(self) -> str:
 		"""
 		Get summary post execution.
 		"""
-		raise Exception('This method must be overriden.')
-		return f"... ({self._count})"
+		return f"{self.i18nSummary} ({self._count})"
 	
 	def count(self) -> int:
 		"""

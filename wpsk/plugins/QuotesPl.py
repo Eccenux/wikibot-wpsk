@@ -22,6 +22,8 @@ import re
 import logging
 from enum import Enum
 
+from wpsk.plugins.BasePlugin import BasePlugin
+
 class States(Enum):
 	START = 1
 	OPEN = 2
@@ -35,31 +37,22 @@ def rreplace(s: str, old: str, new: str, max: int) -> str:
 	parts = s.rsplit(old, max)
 	return new.join(parts)
 
-class QuotesPl:
+class QuotesPl(BasePlugin):
 	def __init__(self, code: Wikicode):
-		self._code = code
+		super().__init__(code, summary="Cudzysłowy")
 
 		# state (start -> open -> start)
 		self._state = States.START
 		self._prev_node = None
-		
-		# modifications count (counting as a numer of full quotes replacements)
-		self._count :int = 0
 
-	def summary(self) -> str:
-		"""
-		Get summary post execution.
-		"""
-		return f"Cudzysłowy ({self._count})"
-	
 	def count(self) -> int:
 		"""
 		Modifications count.
 		Here counting as a numer of full quotes replacements.
 		"""
-		return self._count
+		return super().count()
 
-	def fix(self, text_node: Text) -> bool:
+	def run(self, text_node: Text) -> bool:
 		"""
 		Wykonuje korekty.
 		"""

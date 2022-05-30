@@ -70,7 +70,7 @@ class Cleanup:
 			parent = page_code.get_parent(text_node)
 			if isinstance(parent, mwparserfromhell.nodes.template.Template):
 				continue
-			quotesPl.fix(text_node)
+			quotesPl.run(text_node)
 		if quotesPl.count() > 0:
 			fix_count += quotesPl.count()
 			summary.append(quotesPl.summary())
