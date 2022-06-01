@@ -22,18 +22,22 @@ test_page_title = 'Wikipedysta:Nux/test_Cytuj_język'
 site = pywikibot.Site('pl', 'wikipedia')
 wpsk = Cleanup(site, output_path)
 
-# exec
+# init
 Cleanup.initdir(output_path)
-wpsk.fix_page(test_page_title, dryRun=True)
 
+# test
+# wpsk.fix_page(test_page_title, dryRun=True)
+
+# real pages
 """
 Getting pages from search results:
 copy([...document.querySelectorAll('.mw-search-results a')].map(el=>el.href.replace(/^http.+\//, '')))
 ""
 pages = [
-  "Spaso",
+  "Ofiary_II_wojny_%C5%9Bwiatowej",
+  "NXT_Cruiserweight_Championship",
 ]
 for page_title in pages:
  	wpsk.fix_page(page_title, dryRun=True)
- 	#wpsk.fix_page(page_title, dryRun=False)
-"""
+ 	# wpsk.fix_page(page_title, dryRun=False)
+#"""
