@@ -13,11 +13,6 @@ import logging
 
 from wpsk.plugins.BasePlugin import BasePlugin
 
-# config
-output_path = './io/lang-fix'
-test_page_title = 'Wikipedysta:Nux/test_Cytuj_język'
-desc_prefix = 'MiniSK: Poprawiam język w szablonach cytuj'
-
 class Cytuj(BasePlugin):
 	def __init__(self, code: Wikicode):
 		super().__init__(code, summary="Język w Cytuj*")

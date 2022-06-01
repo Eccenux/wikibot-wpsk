@@ -17,7 +17,6 @@ logging.basicConfig(filename='logs/lang-fix.log', encoding='utf-8', level=loggin
 # config
 output_path = './io/lang-fix'
 test_page_title = 'Wikipedysta:Nux/test_Cytuj_język'
-desc_prefix = 'MiniSK: Poprawiam język w szablonach cytuj'
 
 # init
 site = pywikibot.Site('pl', 'wikipedia')

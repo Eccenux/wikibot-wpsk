@@ -21,7 +21,7 @@ class Cleanup:
 	):
 		self.site = site
 		self.output_path = output_path
-		self.desc_prefix = 'MiniSK:'
+		self.desc_prefix = 'BotSK:'
 
 	def initdir(dir_path: str, clear=False):
 		logging.info('Preapre dir: %s', dir_path)
