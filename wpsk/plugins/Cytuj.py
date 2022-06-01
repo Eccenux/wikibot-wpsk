@@ -6,16 +6,29 @@
 """
 
 import mwparserfromhell
+from mwparserfromhell.nodes.template import Template
+from mwparserfromhell.wikicode import Wikicode
 from utils.file import *
 import logging
+
+from wpsk.plugins.BasePlugin import BasePlugin
 
 # config
 output_path = './io/lang-fix'
 test_page_title = 'Wikipedysta:Nux/test_Cytuj_język'
 desc_prefix = 'MiniSK: Poprawiam język w szablonach cytuj'
 
-class Cytuj:
-	def fix_lang(template: mwparserfromhell.nodes.template.Template) -> bool:
+class Cytuj(BasePlugin):
+	def __init__(self, code: Wikicode):
+		super().__init__(code, summary="Język w Cytuj*")
+
+	def can_run_code(code: Wikicode) -> bool:
+		"""
+		Spr. czy są parametry do zmiany.
+		"""
+		return re.search(r'język\s*=\s*[a-z]+-', str(code)) != None
+	
+	def run(self, template: Template) -> bool:
 		"""
 		Naprawia parametr język w szablonach cytuj*.
 		"""
@@ -33,4 +46,8 @@ class Cytuj:
 					template.add(lang_param, l)
 					logging.info('\treplaced: %s', lang)
 					modified = True
+
+		if modified:
+			self._count += 1
+			
 		return modified

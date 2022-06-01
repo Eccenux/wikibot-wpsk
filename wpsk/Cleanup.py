@@ -52,11 +52,21 @@ class Cleanup:
 		fix_count = 0
 		summary = []
 
-		fix_count += self._fix_tpls(page_code, summary)
+		if self._can_fix_tpls(page_code):
+			fix_count += self._fix_tpls(page_code, summary)
 		if self._can_fix_text(page_code):
 			fix_count += self._fix_text(page_code, summary)
 
 		return (fix_count, summary)
+
+	def _can_fix_tpls(self,
+		page_code: Wikicode,
+	):
+		plugins = [Cytuj]
+		for plugin in plugins:
+			if plugin.can_run_code(page_code):
+				return True
+		return False
 
 	def _fix_tpls(self,
 		page_code: Wikicode,
@@ -65,22 +75,20 @@ class Cleanup:
 		fix_count = 0
 
 		# templates
-		fix_count_lang = 0
+		cytuj = Cytuj(page_code)
 		for template in page_code.filter_templates():
-			modified = Cytuj.fix_lang(template)
-			if modified:
-				fix_count_lang += 1
-		if fix_count_lang > 0:
-			fix_count += fix_count_lang
-			summary.append(f'Język w Cytuj* ({fix_count_lang})')
-
+			cytuj.run(template)
+		if cytuj.count() > 0:
+			fix_count += cytuj.count()
+			summary.append(cytuj.summary())
+		
 		return fix_count
 		
 	def _can_fix_text(self,
 		page_code: Wikicode,
 	):
-		text_plugins = [QuotesPl]
-		for plugin in text_plugins:
+		plugins = [QuotesPl]
+		for plugin in plugins:
 			if plugin.can_run_code(page_code):
 				return True
 		return False
