@@ -36,13 +36,18 @@ class Cleanup:
 		os.makedirs(dir_path, exist_ok=True)
 
 	def fix_page(self, page_title: str, dryRun = True):
+
 		# read content
 		logging.info ('Checking: ' + page_title)
 		print ('Checking: ' + page_title)
 		page = pywikibot.Page(self.site, page_title)
 		page_text: str = page.text
 		page_code: Wikicode = mwparserfromhell.parse(page_text)
+
+		# fix/change
 		(fix_count, summary) = self._fix_code(page_code)
+		
+		# minimum 2 changes required to apply modifications
 		if fix_count > 1:
 			self._apply(page, page_code, summary, dryRun)
 
