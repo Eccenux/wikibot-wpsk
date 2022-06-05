@@ -12,6 +12,7 @@ from mwparserfromhell.wikicode import Wikicode
 from utils.file import *
 from wpsk.plugins.Cytuj import Cytuj
 from wpsk.plugins.QuotesPl import QuotesPl
+import wpsk.perf as perf
 import logging
 
 class Cleanup:
@@ -42,10 +43,14 @@ class Cleanup:
 		print ('Checking: ' + page_title)
 		page = pywikibot.Page(self.site, page_title)
 		page_text: str = page.text
+		dt_start = perf.start()
 		page_code: Wikicode = mwparserfromhell.parse(page_text)
+		perf.check(dt_start, "parse page")
 
 		# fix/change
+		dt_start = perf.start()
 		(fix_count, summary) = self._fix_code(page_code)
+		perf.check(dt_start, "_fix_code")
 		
 		# minimum 2 changes required to apply modifications
 		if fix_count > 1:
@@ -59,10 +64,18 @@ class Cleanup:
 		fix_count = 0
 		summary = []
 
+		dt_start = perf.start()
 		if self._can_fix_tpls(page_code):
+			perf.check(dt_start, "_can_fix_tpls")
+			dt_start = perf.start()
 			fix_count += self._fix_tpls(page_code, summary)
+			perf.check(dt_start, "_fix_tpls")
+		dt_start = perf.start()
 		if self._can_fix_text(page_code):
+			perf.check(dt_start, "_can_fix_text")
+			dt_start = perf.start()
 			fix_count += self._fix_text(page_code, summary)
+			perf.check(dt_start, "_fix_text")
 
 		return (fix_count, summary)
 
