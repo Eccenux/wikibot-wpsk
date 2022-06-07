@@ -52,7 +52,8 @@ def traverse_text(root, level = 0):
 		elif nodeName == 'Template':
 			print(f'{prefix}[{nodeName}] - skip.')
 		elif nodeName == 'Tag':
-			print(f'{prefix}[{nodeName}]({node.tag})<{node.attributes}>:', str(node).strip()[:10])
+			print(f'{prefix}[{nodeName}]({node.tag})<{node.attributes}>')
+			traverse_text(node, level+1)
 		else:
 			print(f'{prefix}[{nodeName}]({len(str(node))}) - dive into...')
 			traverse_text(node, level+1)
