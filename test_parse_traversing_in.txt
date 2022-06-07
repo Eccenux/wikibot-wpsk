@@ -1,0 +1,27 @@
+== Attributes table ==
+
+{| class="wikitable"
+|-
+! style="width:101px" | heading1
+! style="width:102px" | heading2
+|- data-test="whatever"
+| style="width:201px" | testing
+|}
+
+This is some paragraph. I would like to change some "[[quotes]]" here.
+
+== Demo from en.wiki ==
+
+An example from [https://en.wikipedia.org/wiki/Help:Table en.wiki: Help:Table].
+
+{| class="wikitable"
+|+ Caption text
+|-
+! Header text !! Header text !! Header text
+|-
+| Example || Example || Example
+|-
+| Example || Example || Example
+|-
+| Example || Example || Example
+|}

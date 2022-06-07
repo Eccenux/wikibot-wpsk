@@ -1,35 +1,20 @@
 """
-	Test for parsing tables with attributes.
+	Test for traversing code with a table or two.
 """
 import mwparserfromhell
-text = """
-{| class="wikitable"
-|-
-! style="width:101px" | heading1
-! style="width:102px" | heading2
-|- data-test="whatever"
-| style="width:201px" | testing
-|}
-""".strip()
-code = mwparserfromhell.parse(text)
+from mwparserfromhell.wikicode import Wikicode
+
+fileName = "test_parse_traversing_in.txt"
+with open(fileName, 'r') as file:
+	text = file.read()
+
+code:Wikicode = mwparserfromhell.parse(text)
 # code.filter_tags(matches=lambda node: node.tag == "table")
 # print (code.get_tree())
 
-for node in code.filter():
+# loop over top level nodes
+for node in list(code.ifilter(recursive=False)):
 	if isinstance(node, mwparserfromhell.nodes.tag.Tag):
-		print(f'\n[{node.__class__.__name__}]({node.tag})<{node.attributes}>\n"""\n', str(node), '\n"""')
+		print(f'[{node.__class__.__name__}]({node.tag})<{node.attributes}>:', str(node).strip()[:10])
 	else:
-		print(f'\n[{node.__class__.__name__}]\n"""\n', node, '\n"""')
-
-
-"""
-<table class="wikitable">
-	<tr>
-		<th style="width:101px">heading1</th>
-		<th style="width:102px">heading2</th>
-	</tr>
-	<tr data-test="whatever">
-		<td style="width:201px">testing</td>
-	</tr>
-</table>
-"""
+		print(f'[{node.__class__.__name__}]:', str(node).strip()[:10])
