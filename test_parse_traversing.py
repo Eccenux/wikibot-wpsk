@@ -32,7 +32,10 @@ code:Wikicode = mwparserfromhell.parse(text)
 # 		print(f'[{node.__class__.__name__}]:', str(node).strip()[:10])
 
 # recursive loop
-def traverse_text(root):
+def traverse_text(root, level = 0):
+	# for debugging
+	rootName = root.__class__.__name__
+
 	if isinstance(root, Wikicode):
 		children = list(root.ifilter(recursive=False))
 	else:
@@ -40,17 +43,19 @@ def traverse_text(root):
 		# https://mwparserfromhell.readthedocs.io/en/latest/_modules/mwparserfromhell/nodes/_base.html#Node
 		children = root.__children__()
 
+	prefix = '  ' * level
 	for node in children:
 		nodeName = node.__class__.__name__
 
 		if nodeName == 'Text':
-			print(f'[{nodeName}]({len(str(node))}):', str(node).strip()[:10])
+			print(f'{prefix}[{nodeName}]({len(str(node))}):', str(node).strip()[:10])
 		elif nodeName == 'Template':
-			print(f'[{nodeName}] - skip.')
+			print(f'{prefix}[{nodeName}] - skip.')
 		elif nodeName == 'Tag':
-			print(f'[{nodeName}]({node.tag})<{node.attributes}>:', str(node).strip()[:10])
+			print(f'{prefix}[{nodeName}]({node.tag})<{node.attributes}>')
+			traverse_text(node, level+1)
 		else:
-			print(f'[{nodeName}]({len(str(node))}) - dive into...')
-			traverse_text(node)
+			print(f'{prefix}[{nodeName}]({len(str(node))}) - dive into...')
+			traverse_text(node, level+1)
 
 traverse_text(code)
