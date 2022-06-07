@@ -1,0 +1,120 @@
+Template: *skip.
+Text: (2) 
+Tag.li: <[]>
+Text: (22) To jest "p
+Tag.li: <[]>
+Text: (1) 
+Template: *skip.
+Text: (1) 
+Tag.li: <[]>
+Text: (2) "
+Template: *skip.
+Text: (3) "
+Heading: (22)
+  Wikicode: (18)
+    Text: (18) Attributes
+Text: (2) 
+Tag.table: <[' class="wikitable"']>
+  Wikicode: (5)
+    Text: (5) class
+  Wikicode: (9)
+    Text: (9) wikitable
+  Wikicode: (125)
+    Tag.tr: <[]>
+      Wikicode: (66)
+        Tag.th: <[' style="width:101px"']>
+          Wikicode: (5)
+            Text: (5) style
+          Wikicode: (11)
+            Text: (11) width:101p
+          Wikicode: (10)
+            Text: (10) heading1
+        Tag.th: <[' style="width:102px"']>
+          Wikicode: (5)
+            Text: (5) style
+          Wikicode: (11)
+            Text: (11) width:102p
+          Wikicode: (10)
+            Text: (10) heading2
+    Tag.tr: <[' data-test="whatever"']>
+      Wikicode: (9)
+        Text: (9) data-test
+      Wikicode: (8)
+        Text: (8) whatever
+      Wikicode: (32)
+        Tag.td: <[' style="width:201px"']>
+          Wikicode: (5)
+            Text: (5) style
+          Wikicode: (11)
+            Text: (11) width:201p
+          Wikicode: (9)
+            Text: (9) testing
+Text: (55) This is so
+Wikilink: (10)
+  Wikicode: (6)
+    Text: (6) quotes
+Text: (9) " here.
+Heading: (23)
+  Wikicode: (19)
+    Text: (19) Demo from 
+Text: (18) An example
+ExternalLink: (62)
+  Wikicode: (40)
+    Text: (40) https://en
+  Wikicode: (19)
+    Text: (19) en.wiki: H
+Text: (3) .
+Tag.table: <[' class="wikitable"']>
+  Wikicode: (5)
+    Text: (5) class
+  Wikicode: (9)
+    Text: (9) wikitable
+  Wikicode: (168)
+    Tag.td: <[]>
+      Wikicode: (15)
+        Text: (15) + Caption 
+    Tag.tr: <[]>
+      Wikicode: (44)
+        Tag.th: <[]>
+          Wikicode: (13)
+            Text: (13) Header tex
+        Tag.th: <[]>
+          Wikicode: (13)
+            Text: (13) Header tex
+        Tag.th: <[]>
+          Wikicode: (13)
+            Text: (13) Header tex
+    Tag.tr: <[]>
+      Wikicode: (32)
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+    Tag.tr: <[]>
+      Wikicode: (32)
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+    Tag.tr: <[]>
+      Wikicode: (32)
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+        Tag.td: <[]>
+          Wikicode: (9)
+            Text: (9) Example
+Text: (1) 

@@ -1,5 +1,8 @@
 """
 	Test for traversing code with a table or two.
+
+	Save output as Yaml (to get collaping of levels):
+	python test_parse_traversing.py > test_parse_traversing_out.yml
 """
 import mwparserfromhell
 from mwparserfromhell.wikicode import Wikicode
@@ -48,14 +51,14 @@ def traverse_text(root, level = 0):
 		nodeName = node.__class__.__name__
 
 		if nodeName == 'Text':
-			print(f'{prefix}[{nodeName}]({len(str(node))}):', str(node).strip()[:10])
+			print(f'{prefix}{nodeName}: ({len(str(node))})', str(node).strip()[:10])
 		elif nodeName == 'Template':
-			print(f'{prefix}[{nodeName}] - skip.')
+			print(f'{prefix}{nodeName}: *skip.')
 		elif nodeName == 'Tag':
-			print(f'{prefix}[{nodeName}]({node.tag})<{node.attributes}>')
+			print(f'{prefix}{nodeName}.{node.tag}: <{node.attributes}>')
 			traverse_text(node, level+1)
 		else:
-			print(f'{prefix}[{nodeName}]({len(str(node))}) - dive into...')
+			print(f'{prefix}{nodeName}: ({len(str(node))})')
 			traverse_text(node, level+1)
 
 traverse_text(code)
