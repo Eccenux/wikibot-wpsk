@@ -1,3 +1,21 @@
+{{Biogram infobox
+ |imię i nazwisko            = Chuveirão
+ |grafika                    = "Chuveirão" na Caverna Timimina.jpg
+ |opis grafiki               = 
+ |data urodzenia             = 
+ |miejsce urodzenia          = 
+ |data śmierci               = 
+ |miejsce śmierci            = 
+ |zawód                      = Test
+ |odznaczenia                = 
+ |commons                    = 
+ |www                        = 
+}}
+
+* To jest "przykład".
+* {{Cytuj pismo|nazwisko=Doe|imię=John|tytuł=US|czasopismo=Czas "pisma"| język=en-US}}
+* "{{Cytuj pismo|nazwisko=Doe|imię=John|tytuł=US|czasopismo=Czas "pisma"| język=en-US}}"
+
 == Attributes table ==
 
 {| class="wikitable"
