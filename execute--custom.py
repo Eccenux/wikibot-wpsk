@@ -30,7 +30,7 @@ wpsk.min_fix_count = 1
 
 def extra_change(page_text: str, summary: list):
 	change_count = 0
-	base_tpl_name = '(Zapaśnicy [^ ]+ na igrzyskach olimpijskich)'
+	base_tpl_name = r'(Zapaśnicy [^}\n]+ na igrzyskach olimpijskich)'
 	if re.search(base_tpl_name + r' - ', page_text) != None:
 		page_text = re.sub(base_tpl_name + " - ", r"\1 – ", page_text)
 		summary.append('sz-int')
@@ -62,13 +62,19 @@ for page_title in pages:
 # list of lists
 from lists.zapasnicy import pages as pages_lists
 skipped = []
+done_already = []
 for pages in pages_lists:
 	print (pages)
 	for page_title in pages:
+		if page_title in done_already:
+			print (f'Duplicate page: {page_title}')
+			continue
 		# changed = wpsk.fix_page(page_title, dryRun=True)
 		changed = wpsk.fix_page(page_title, dryRun=False)
 		if not changed:
 			skipped.append(page_title)
+		else:
+			done_already.append(page_title)
 	# break
 print ("\n\nSkipped pages (unchanged or duplicates):")
 print (skipped)
