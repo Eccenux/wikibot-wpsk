@@ -24,3 +24,11 @@ pwb -help
 ```
 git submodule add "https://github.com/Eccenux/wikibot-utils.git" "utils"
 ```
+
+## Executing changes
+
+1. You need a list of pages first.
+2. Use the list to make a dry run via one of `execute--*.py`.
+3. Make a non-dry run to make changes in articles.
+
+Note that you might need to prepare new `execute--*.py` or modify the custom one with a simple, one-time change.

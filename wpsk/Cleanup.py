@@ -4,6 +4,19 @@
 	Makes a backup of before-after contents.
 
 	Should eventually run more sk-like tasks.
+
+	Use `extra_changes` property to add custom changes in wikicode string.
+	Those function(s) are run after BotSK changes.
+	# You change the text.
+	# Append your info to summary.
+	# And return 1 or higher as a count.
+	def extra_change(
+		page_text: str,
+		summary: list,
+	):
+		return (change_count, page_text_new)
+	Note! If change_count is 0 then changes are ignored. So you can do:
+		return (0, "")
 """
 
 import pywikibot
@@ -22,7 +35,12 @@ class Cleanup:
 	):
 		self.site = site
 		self.output_path = output_path
+		# description of change prefix (desc added in summary)
 		self.desc_prefix = 'BotSK:'
+		# minimum number of changes for the change to be worth it
+		self.min_fix_count = 2
+		# array of additional changes (functions)
+		self.extra_changes = []
 
 	def initdir(dir_path: str, clear=False):
 		logging.info('Preapre dir: %s', dir_path)
@@ -52,9 +70,18 @@ class Cleanup:
 		(fix_count, summary) = self._fix_code(page_code)
 		perf.check(dt_start, "_fix_code")
 		
+		page_text = str(page_code)
+
+		# extra changes in wikicode
+		for extra_change in self.extra_changes:
+			(extra_count, page_text_new) = extra_change(page_text, summary)
+			if extra_count>0:
+				page_text = page_text_new
+				fix_count += extra_count
+
 		# minimum 2 changes required to apply modifications
-		if fix_count > 1:
-			self._apply(page, page_code, summary, dryRun)
+		if fix_count >= self.min_fix_count:
+			self._apply(page, page_text, summary, dryRun)
 		else:
 			print (f'Skipping, too little changes: {fix_count}.')
 
@@ -79,6 +106,7 @@ class Cleanup:
 
 		return (fix_count, summary)
 
+	#region <TPL FIXES>
 	def _can_fix_tpls(self,
 		page_code: Wikicode,
 	):
@@ -103,7 +131,9 @@ class Cleanup:
 			summary.append(cytuj.summary())
 		
 		return fix_count
-		
+	#endregion
+	
+	#region <TEXT FIXES>
 	def _can_fix_text(self,
 		page_code: Wikicode,
 	):
@@ -132,14 +162,19 @@ class Cleanup:
 			summary.append(quotesPl.summary())
 		
 		return fix_count
+	#endregion
 
 	def _apply(self,
 		page: pywikibot.Page,
-		page_code: Wikicode,
+		page_text: str,
 		summary: list,
 		dryRun: True,
 	):
-		page_text = str(page_code)
+		"""
+		:page should be unchanged at this point.
+		:page_text contains a new value
+		:summary is a list short(!) info on the changes of each plugin/function
+		"""
 		if (page_text.strip() == page.text.strip()):
 			logging.info('Nothing to do.')
 			print ('Nothing to do.')
