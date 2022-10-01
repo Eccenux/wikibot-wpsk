@@ -11,7 +11,7 @@ import mwparserfromhell
 from mwparserfromhell.wikicode import Wikicode
 from utils.file import *
 from wpsk.plugins.Cytuj import Cytuj
-from wpsk.plugins.QuotesPl import QuotesPl
+from wpsk.plugins.QuotesPlSafe import QuotesPlSafe
 import wpsk.perf as perf
 import logging
 
@@ -107,7 +107,7 @@ class Cleanup:
 	def _can_fix_text(self,
 		page_code: Wikicode,
 	):
-		plugins = [QuotesPl]
+		plugins = [QuotesPlSafe]
 		for plugin in plugins:
 			if plugin.can_run_code(page_code):
 				return True
@@ -120,7 +120,7 @@ class Cleanup:
 		fix_count = 0
 
 		# text
-		quotesPl = QuotesPl(page_code)
+		quotesPl = QuotesPlSafe(page_code)
 		for text_node in page_code.filter_text():
 			# skip in templates (directly in templates)
 			parent = page_code.get_parent(text_node)
