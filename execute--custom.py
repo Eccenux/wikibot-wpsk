@@ -30,9 +30,9 @@ wpsk.min_fix_count = 1
 
 def extra_change(page_text: str, summary: list):
 	change_count = 0
-	base_tpl_name = 'Zapaśnicy Węgier na igrzyskach olimpijskich'
+	base_tpl_name = '(Zapaśnicy [^ ]+ na igrzyskach olimpijskich)'
 	if re.search(base_tpl_name + r' - ', page_text) != None:
-		page_text = page_text.replace(base_tpl_name + " - ", base_tpl_name + " – ")
+		page_text = re.sub(base_tpl_name + " - ", r"\1 – ", page_text)
 		summary.append('sz-int')
 		change_count = 1
 		return (change_count, page_text)
@@ -52,6 +52,10 @@ pages = [
 	"Imre Szalay",
 	"László Papp (zapaśnik)",
 ]
-for page_title in pages:
- 	wpsk.fix_page(page_title, dryRun=True)
- 	# wpsk.fix_page(page_title, dryRun=False)
+from lists.zapasnicy import pages as pages_lists
+for pages in pages_lists:
+	print (pages)
+	for page_title in pages:
+		# wpsk.fix_page(page_title, dryRun=True)
+		wpsk.fix_page(page_title, dryRun=False)
+	# break
