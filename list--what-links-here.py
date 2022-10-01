@@ -7,7 +7,7 @@ from utils.api import *
 from utils.file import *
 
 import logging
-logging.basicConfig(filename='logs/download2.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename='logs/list-links.log', encoding='utf-8', level=logging.DEBUG)
 
 site = pywikibot.Site("pl", 'wikipedia')
 output_path = './io/lists/'
@@ -58,6 +58,7 @@ def download(tpl, base_path, list_name, append = True):
 	logging.info(summary)
 	
 
+"""
 tpls = [
 	"Zapaśnicy Węgier na igrzyskach olimpijskich - Amsterdam 1928",
 	"Zapaśnicy Węgier na igrzyskach olimpijskich - Atlanta 1996",
@@ -108,11 +109,29 @@ tpls = [
 	"Zapaśnicy Francji na igrzyskach olimpijskich - Sydney 2000",
 	"Zapaśnicy Francji na igrzyskach olimpijskich - Tokio 1964",	
 ]
+"""
+tpls = [
+	"Zapaśnicy Węgier na igrzyskach olimpijskich – Amsterdam 1928",
+	"Zapaśnicy Węgier na igrzyskach olimpijskich – Atlanta 1996",
+	"Zapaśnicy Węgier na igrzyskach olimpijskich – Barcelona 1992",
+]
+
+list_name = "zapasnicy.py"
 
 append = False
 for page_title in tpls:
-	download(page_title, output_path, "zapasnicy.py", append = append)
+	download(page_title, output_path, list_name, append = append)
 	append = True
 
-# download(tpls[0], output_path, "zapasnicy.py", append = False)
-# download(tpls[1], output_path, "zapasnicy.py")
+# add pages variable
+file = make_safe_filename(list_name)
+path = os.path.join(output_path, file)
+with open(path, "r+", encoding='utf-8') as text_file:
+	text_file.seek(0)
+	text = text_file.read()
+	text_file.seek(0)
+	text_file.write("pages = [\n")
+	text_file.write(text)
+	text_file.write("\n]\n")
+# download(tpls[0], output_path, list_name, append = False)
+# download(tpls[1], output_path, list_name)
