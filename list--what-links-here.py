@@ -58,7 +58,7 @@ def download(tpl, base_path, list_name, append = True):
 	logging.info(summary)
 	
 
-"""
+#"""
 tpls = [
 	"Zapaśnicy Węgier na igrzyskach olimpijskich - Amsterdam 1928",
 	"Zapaśnicy Węgier na igrzyskach olimpijskich - Atlanta 1996",
@@ -109,13 +109,14 @@ tpls = [
 	"Zapaśnicy Francji na igrzyskach olimpijskich - Sydney 2000",
 	"Zapaśnicy Francji na igrzyskach olimpijskich - Tokio 1964",	
 ]
+#"""
 """
 tpls = [
 	"Zapaśnicy Węgier na igrzyskach olimpijskich – Amsterdam 1928",
 	"Zapaśnicy Węgier na igrzyskach olimpijskich – Atlanta 1996",
 	"Zapaśnicy Węgier na igrzyskach olimpijskich – Barcelona 1992",
 ]
-
+"""
 list_name = "zapasnicy.py"
 
 append = False
