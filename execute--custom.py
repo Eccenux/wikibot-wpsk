@@ -41,17 +41,25 @@ def extra_change(page_text: str, summary: list):
 wpsk.extra_changes.append(extra_change)
 ##
 
-# real pages
+##
+# Running changes
+##
 """
 Getting pages from search results:
 copy([...document.querySelectorAll('.mw-search-results a')].map(el=>el.href.replace(/^http.+\//, '')))
 Getting pages from linked specila page:
 copy(Array.from(document.querySelectorAll('#mw-whatlinkshere-list li > a')).map(el=>el.textContent))
 """
+# small scale changes
+"""
 pages = [
 	"Imre Szalay",
 	"László Papp (zapaśnik)",
 ]
+for page_title in pages:
+	wpsk.fix_page(page_title, dryRun=True)
+"""
+# list of lists
 from lists.zapasnicy import pages as pages_lists
 for pages in pages_lists:
 	print (pages)
@@ -59,3 +67,4 @@ for pages in pages_lists:
 		# wpsk.fix_page(page_title, dryRun=True)
 		wpsk.fix_page(page_title, dryRun=False)
 	# break
+#"""
