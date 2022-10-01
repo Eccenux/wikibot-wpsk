@@ -1,5 +1,5 @@
 """
-	Naprawia parametr język w szablonie Cytuj.
+	Runs BotSK in a default configuration on a set of pages.
 
 	Makes a backup of before-after contents.
 
@@ -12,13 +12,10 @@ from utils.file import *
 from wpsk.Cleanup import *
 
 import logging
-logging.basicConfig(filename='logs/lang-fix.log', encoding='utf-8', level=logging.INFO)
+logging.basicConfig(filename='logs/execute--sk.log', encoding='utf-8', level=logging.INFO)
 
 # config
-output_path = './io/lang-fix'
-# test_page_title = 'Wikipedysta:Nux/test_Cytuj_język'
-test_page_title = 'Wikipedysta:Nux/test quotePL/NXT Cruiserweight Championship'
-# test_page_title = 'Wikipedysta:Nux/test quotePL/Ofiary II wojny'
+output_path = './io/execute--sk'
 
 # init
 site = pywikibot.Site('pl', 'wikipedia')
@@ -27,19 +24,18 @@ wpsk = Cleanup(site, output_path)
 # init
 Cleanup.initdir(output_path)
 
-# test
-wpsk.fix_page(test_page_title, dryRun=True)
-
 # real pages
 """
 Getting pages from search results:
 copy([...document.querySelectorAll('.mw-search-results a')].map(el=>el.href.replace(/^http.+\//, '')))
-""
+"""
 pages = [
   "Ofiary_II_wojny_%C5%9Bwiatowej",
   "NXT_Cruiserweight_Championship",
 ]
+
+# Loop over and make changes.
+# Note that dryRun=True just loads a page and saves changes locally (to review changes before running)
 for page_title in pages:
  	wpsk.fix_page(page_title, dryRun=True)
  	# wpsk.fix_page(page_title, dryRun=False)
-#"""

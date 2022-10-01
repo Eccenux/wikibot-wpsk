@@ -4,9 +4,19 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "lang-fix",
+			"label": "execute--sk",
 			"type": "shell",
-			"command": "pwb lang-fix",
+			"command": "pwb execute--sk",
+			"options": {
+				"cwd": "${workspaceFolder}/"
+			},
+			"group": "build",
+			"problemMatcher": [],
+		},
+		{
+			"label": "execute--test",
+			"type": "shell",
+			"command": "pwb execute--test",
 			"options": {
 				"cwd": "${workspaceFolder}/"
 			},

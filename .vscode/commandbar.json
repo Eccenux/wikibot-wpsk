@@ -8,10 +8,17 @@
 		// Note, F5 on a py file should work as well.
 
 		{
-			"text": "Run: lang-fix",
+			"text": "Run: execute--sk",
 			"color": "lightgreen",
 			"commandType": "palette",
-			"command": "workbench.action.tasks.runTask|lang-fix",
+			"command": "workbench.action.tasks.runTask|execute--sk",
+			"priority": 0
+		},
+		{
+			"text": "Run: execute--test",
+			"color": "lightgreen",
+			"commandType": "palette",
+			"command": "workbench.action.tasks.runTask|execute--test",
 			"priority": 0
 		},
 
