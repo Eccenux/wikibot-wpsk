@@ -28,13 +28,11 @@ Cleanup.initdir(output_path)
 ##
 wpsk.min_fix_count = 1
 
+change_pattern = re.compile(r"(Zapaśnicy [^}\[\]\n]+ na) igrzyskach olimpijskich [–-] ", re.IGNORECASE)
 def extra_change(page_text: str, summary: list):
-	change_count = 0
-	base_tpl_name = r'(Zapaśnicy [^}\n]+ na igrzyskach olimpijskich)'
-	if re.search(base_tpl_name + r' - ', page_text) != None:
-		page_text = re.sub(base_tpl_name + " - ", r"\1 – ", page_text)
-		summary.append('sz-int')
-		change_count = 1
+	(page_text, change_count) = change_pattern.subn(r"\1 igrzyskach olimpijskich – ", page_text)
+	if change_count >= 1:
+		summary.append('sz-nazwa')
 		return (change_count, page_text)
 	return (0, "")
 
@@ -64,7 +62,7 @@ from lists.zapasnicy import pages as pages_lists
 skipped = []
 done_already = []
 for pages in pages_lists:
-	print (pages)
+	#print (pages)
 	for page_title in pages:
 		if page_title in done_already:
 			print (f'Duplicate page: {page_title}')
