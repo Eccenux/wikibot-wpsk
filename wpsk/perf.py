@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 """
 Simple perfromance tools.
@@ -9,4 +10,4 @@ def start() -> datetime:
 
 def check(dt_start: datetime, info: str = ""):
 	dt_end = datetime.datetime.now()
-	print (dt_end - dt_start, info)
+	logging.info(f'perf: {dt_end - dt_start} {info}')

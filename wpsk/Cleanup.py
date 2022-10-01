@@ -82,8 +82,11 @@ class Cleanup:
 		# minimum 2 changes required to apply modifications
 		if fix_count >= self.min_fix_count:
 			self._apply(page, page_text, summary, dryRun)
+			return True
 		else:
+			logging.warning (f'Skipping, too little changes: {fix_count}.')
 			print (f'Skipping, too little changes: {fix_count}.')
+			return False
 
 	def _fix_code(self,
 		page_code: Wikicode,

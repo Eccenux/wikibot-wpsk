@@ -61,10 +61,15 @@ for page_title in pages:
 """
 # list of lists
 from lists.zapasnicy import pages as pages_lists
+skipped = []
 for pages in pages_lists:
 	print (pages)
 	for page_title in pages:
-		# wpsk.fix_page(page_title, dryRun=True)
-		wpsk.fix_page(page_title, dryRun=False)
+		# changed = wpsk.fix_page(page_title, dryRun=True)
+		changed = wpsk.fix_page(page_title, dryRun=False)
+		if not changed:
+			skipped.append(page_title)
 	# break
+print ("\n\nSkipped pages (unchanged or duplicates):")
+print (skipped)
 #"""
