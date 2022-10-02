@@ -44,7 +44,7 @@ def download(category, base_path, list_name, append = True):
 		except Exception as error:
 			errors += 1
 			logging.error({'page':page, 'error':error})
-	save_list(pages, base_path, list_name, append = append)
+	save_list_data(pages, base_path, list_name, append = append)
 	summary = """
 	Category: {category},
 	Pages count: {counter},
@@ -58,26 +58,22 @@ def download(category, base_path, list_name, append = True):
 	logging.info(summary)
 	
 
-#"""
+# """
 categories = [
 	"Kategoria:Szablony nawigacyjne - zapasy na igrzyskach olimpijskich",
 ]
 #"""
-list_name = "zapasnicytplsall.py"
+
+list_name = "zapasnicy_tpls_all.py"
+
+# """
 append = False
 for page_title in categories:
 	download(page_title, output_path, list_name, append = append)
 	append = True
-
-# add pages variable
-file = make_safe_filename(list_name)
-path = os.path.join(output_path, file)
-with open(path, "r+", encoding='utf-8') as text_file:
-	text_file.seek(0)
-	text = text_file.read()
-	text_file.seek(0)
-	text_file.write("pages = [\n")
-	text_file.write(text)
-	text_file.write("\n]\n")
+#"""
 # download(categories[0], output_path, list_name, append = False)
 # download(categories[1], output_path, list_name)
+
+# add pages variable
+save_list_var(output_path, list_name, var_name = 'pages')
