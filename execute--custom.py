@@ -28,7 +28,10 @@ Cleanup.initdir(output_path)
 ##
 wpsk.min_fix_count = 1
 
-change_pattern = re.compile(r"(Zapaśnicy [^}\[\]\n]+ na) igrzyskach olimpijskich [–-] ", re.IGNORECASE)
+# Judocy Austrii na igrzyskach olimpijskich - Ateny 2004
+# Judocy Austrii na IGRZYSKACH OLIMPIJSKICH – Ateny 2004
+# Zapaśnicy Wielkiej Brytanii na Igrzyskach Olimpijskich – Atlanta 1996
+change_pattern = re.compile(r"([\wzażółćgęśląjaźń]+ [^}\[\]\n]+ na) igrzyskach olimpijskich [–-] ", re.IGNORECASE)
 def extra_change(page_text: str, summary: list):
 	(page_text, change_count) = change_pattern.subn(r"\1 igrzyskach olimpijskich – ", page_text)
 	if change_count >= 1:
@@ -58,7 +61,7 @@ for page_title in pages:
 	wpsk.fix_page(page_title, dryRun=True)
 """
 # list of lists
-from lists.zapasnicy import pages as pages_lists
+from lists.sportowcy_io_links import pages as pages_lists
 skipped = []
 done_already = []
 for pages in pages_lists:
