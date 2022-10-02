@@ -75,8 +75,8 @@ tpls = [
 ]
 #"""
 
-list_name = "sportowcy_io_links.py"
-from lists.sportowcy_io_tpls import pages as tpls
+list_name = "other_io_links.py"
+from lists.other_io_tpls import pages as tpls
 
 # """
 append = False

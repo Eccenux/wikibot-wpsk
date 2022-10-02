@@ -31,9 +31,33 @@ wpsk.min_fix_count = 1
 # Judocy Austrii na igrzyskach olimpijskich - Ateny 2004
 # Judocy Austrii na IGRZYSKACH OLIMPIJSKICH – Ateny 2004
 # Zapaśnicy Wielkiej Brytanii na Igrzyskach Olimpijskich – Atlanta 1996
-change_pattern = re.compile(r"([\wzażółćgęśląjaźń]+ [^}\[\]\n]+ na) igrzyskach olimpijskich [–-] ", re.IGNORECASE)
+# change_pattern = re.compile(r"([\wzażółćgęśląjaźń]+ [^}\[\]\n]+ na) igrzyskach olimpijskich [–-] ", re.IGNORECASE)
+
+# original name
+change_before = [
+	r"(Bokserzy Polski na Letnich Igrzyskach Olimpijskich) - (Atlanta 1996)",
+	r"(Bokserzy Rosji na Letnich Igrzyskach Olimpijskich) - (Atlanta 1996)",
+	r"(Bokserzy Rumunii na Letnich Igrzyskach Olimpijskich) - (Atlanta 1996)",
+	r"(IO Australia 2020) - (kobiety)",
+	r"(IO Belgia 2020) - (kobiety)",
+	r"(IO Francja 2020) - (kobiety)",
+	r"(IO Kanada 2020) - (kobiety)",
+	r"(IO Serbia 2020) - (kobiety)",
+	r"(IO USA 2020) - (kobiety)",
+	r"(Mistrzowie olimpijscy w kombinacji norweskiej) - (duża skocznia)",
+	r"(Piłka siatkowa na LIO 2012) - (kwalifikacje)",
+]
+change_regexs = []
+for change_pattern in change_before:
+	#change_regexs.append(re.compile(change_pattern, re.IGNORECASE))
+	change_regexs.append(re.compile(change_pattern))
+
+# change
 def extra_change(page_text: str, summary: list):
-	(page_text, change_count) = change_pattern.subn(r"\1 igrzyskach olimpijskich – ", page_text)
+	change_count = 0
+	for change_re in change_regexs:
+		(page_text, change_count_re) = change_re.subn(r"\1 – \2", page_text)
+		change_count += change_count_re
 	if change_count >= 1:
 		summary.append('sz-nazwa')
 		return (change_count, page_text)
@@ -48,7 +72,7 @@ wpsk.extra_changes.append(extra_change)
 """
 Getting pages from search results:
 copy([...document.querySelectorAll('.mw-search-results a')].map(el=>el.href.replace(/^http.+\//, '')))
-Getting pages from linked specila page:
+Getting pages from linked special page:
 copy(Array.from(document.querySelectorAll('#mw-whatlinkshere-list li > a')).map(el=>el.textContent))
 """
 # small scale changes
@@ -61,7 +85,7 @@ for page_title in pages:
 	wpsk.fix_page(page_title, dryRun=True)
 """
 # list of lists
-from lists.sportowcy_io_links import pages as pages_lists
+from lists.other_io_links import pages as pages_lists
 skipped = []
 done_already = []
 for pages in pages_lists:
