@@ -41,6 +41,9 @@ class Cleanup:
 		self.min_fix_count = 2
 		# array of additional changes (functions)
 		self.extra_changes = []
+		# run parser and standard fixes
+		# (set to False to skip parsing the page and just run `extra_changes`)
+		self.run_parser_fixes = True
 
 	def initdir(dir_path: str, clear=False):
 		logging.info('Preapre dir: %s', dir_path)
@@ -61,16 +64,22 @@ class Cleanup:
 		print ('Checking: ' + page_title)
 		page = pywikibot.Page(self.site, page_title)
 		page_text: str = page.text
-		dt_start = perf.start()
-		page_code: Wikicode = mwparserfromhell.parse(page_text)
-		perf.check(dt_start, "parse page")
 
-		# fix/change
-		dt_start = perf.start()
-		(fix_count, summary) = self._fix_code(page_code)
-		perf.check(dt_start, "_fix_code")
-		
-		page_text = str(page_code)
+		# standard fixes based on MWPFromHell.
+		if self.run_parser_fixes:
+			dt_start = perf.start()
+			page_code: Wikicode = mwparserfromhell.parse(page_text)
+			perf.check(dt_start, "parse page")
+
+			# fix/change
+			dt_start = perf.start()
+			(fix_count, summary) = self._fix_code(page_code)
+			perf.check(dt_start, "_fix_code")
+			
+			page_text = str(page_code)
+		else:
+			fix_count = 0
+			summary = []
 
 		# extra changes in wikicode
 		for extra_change in self.extra_changes:

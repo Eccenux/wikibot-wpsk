@@ -10,6 +10,7 @@ class CleanupWs(Cleanup):
 		output_path: str
 	):
 		super().__init__(site, output_path)
+		self.run_parser_fixes = False
 
 	def _can_fix_tpls(self,
 		page_code: Wikicode,
