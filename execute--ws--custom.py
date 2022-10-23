@@ -33,7 +33,8 @@ wpsk.min_fix_count = 1
 
 # original name
 change_before = [
-	r"(\{\{[eE]pub\}\})[ \t]*([\r\n]* ?\{\{([cC]ałość|[eE]pub))",
+	#r"(\{\{[eE]pub\}\})[ \t]*([\r\n]* ?\{\{([cC]ałość|[eE]pub))",
+	r"(\{\{[eE]pub\}\})[ \t]*()",
 ]
 change_regexs = []
 for change_pattern in change_before:
