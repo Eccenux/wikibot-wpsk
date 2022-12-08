@@ -34,9 +34,9 @@ def download(page_title, base_path, list_name, append = True):
 
 	tpl_page = pywikibot.Page(site, page_title)
 	generatorLinks = tpl_page.itertemplates()
-	generator = generatorLinks
-	# skip technical/arch pages
-	# generator = RegexFilter.titlefilter(generatorLinks, r'^(Wikipedia:Poczekalnia/.+/2022:)/', quantifier='all', ignore_namespace=False)
+	# generator = generatorLinks
+	# only pages matching this
+	generator = RegexFilter.titlefilter(generatorLinks, r'^Wikipedia:Poczekalnia/.+/2022\:', quantifier='all', ignore_namespace=False)
 
 	# download & save
 	counter = 0
@@ -79,13 +79,13 @@ tpls = [
 list_name = "poczekalnia_links.py"
 # from lists.poczekalnia_tpls import pages as tpls
 
-"""
+# """
 append = False
 for page_title in tpls:
 	download(page_title, output_path, list_name, append = append)
 	append = True
 #"""
-download(tpls[0], output_path, list_name, append = False)
+# download(tpls[0], output_path, list_name, append = False)
 # download(tpls[1], output_path, list_name)
 
 # add pages variable
