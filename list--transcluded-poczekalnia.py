@@ -73,6 +73,9 @@ tpls = [
 	"Wikipedia:Poczekalnia/artykuły",
 	"Wikipedia:Poczekalnia/biografie",
 	"Wikipedia:Poczekalnia/kwestie techniczne",
+	"Wikipedia:Poczekalnia/kwestie techniczne załatwione 24",
+	"Wikipedia:Poczekalnia/biografie załatwione 24",
+	"Wikipedia:Poczekalnia/artykuły załatwione 24",
 ]
 #"""
 
