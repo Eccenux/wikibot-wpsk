@@ -8,7 +8,7 @@ from utils.api import *
 from utils.file import *
 
 import logging
-logging.basicConfig(filename='logs/list-links.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig(filename='logs/poczekalnia-list-links.log', encoding='utf-8', level=logging.DEBUG)
 
 site = pywikibot.Site("pl", 'wikipedia')
 output_path = './io/lists/'
@@ -22,26 +22,27 @@ limit = -1
 # init dir
 import os
 
-def download(tpl, base_path, list_name, append = True):
-	print('\nTemplate:', tpl)
-	logging.info('\n\tTemplate: %s', tpl)
+# download list of transcluded page (templates)
+def download(page_title, base_path, list_name, append = True):
+	print('\nPage:', page_title)
+	logging.info('\n\tPage: %s', page_title)
 
 	os.makedirs(base_path, exist_ok=True)
 
-	
 	# template inclusions
-	#generator = list_template_embedded(site, tpl, content=False)
+	# generator = list_template_embedded(site, page_title, content=False)
 
-	# all links but filtered
-	tpl_page = get_template_page(site, tpl)
-	generatorLinks = tpl_page.backlinks()
+	tpl_page = pywikibot.Page(site, page_title)
+	generatorLinks = tpl_page.itertemplates()
+	generator = generatorLinks
 	# skip technical/arch pages
-	generator = RegexFilter.titlefilter(generatorLinks, r'^(Wikiprojekt:Sprzątanie szablonów|Wikipedysta:PBbot)/', quantifier='none', ignore_namespace=False)
+	# generator = RegexFilter.titlefilter(generatorLinks, r'^(Wikipedia:Poczekalnia/.+/2022:)/', quantifier='all', ignore_namespace=False)
 
 	# download & save
 	counter = 0
 	errors = 0
-	pages = [tpl_page.title()]	# include self
+	# pages = [tpl_page.title()]	# include self
+	pages = []
 	for page in generator:
 		counter += 1
 		try:
@@ -55,36 +56,36 @@ def download(tpl, base_path, list_name, append = True):
 			logging.error({'page':page, 'error':error})
 	save_list_data(pages, base_path, list_name, append = append)
 	summary = """
-	Template: {tpl},
+	Page: {page_title},
 	Pages count: {counter},
 	Errors count: {errors}.
 	""".format_map({
 		'counter': str(counter),
 		'errors': str(errors),
-		'tpl': tpl,
+		'page_title': page_title,
 	})
 	print(summary)
 	logging.info(summary)
 	
 
-"""
+# """
 tpls = [
-	"Zapaśnicy Węgier na igrzyskach olimpijskich – Amsterdam 1928",
-	"Zapaśnicy Węgier na igrzyskach olimpijskich – Atlanta 1996",
-	"Zapaśnicy Węgier na igrzyskach olimpijskich – Barcelona 1992",
+	"Wikipedia:Poczekalnia/artykuły",
+	"Wikipedia:Poczekalnia/biografie",
+	"Wikipedia:Poczekalnia/kwestie techniczne",
 ]
 #"""
 
-list_name = "other_io_links.py"
-from lists.other_io_tpls import pages as tpls
+list_name = "poczekalnia_links.py"
+# from lists.poczekalnia_tpls import pages as tpls
 
-# """
+"""
 append = False
 for page_title in tpls:
 	download(page_title, output_path, list_name, append = append)
 	append = True
 #"""
-# download(tpls[0], output_path, list_name, append = False)
+download(tpls[0], output_path, list_name, append = False)
 # download(tpls[1], output_path, list_name)
 
 # add pages variable
