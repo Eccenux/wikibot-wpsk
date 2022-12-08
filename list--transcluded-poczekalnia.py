@@ -11,7 +11,7 @@ import logging
 logging.basicConfig(filename='logs/poczekalnia-list-links.log', encoding='utf-8', level=logging.DEBUG)
 
 site = pywikibot.Site("pl", 'wikipedia')
-output_path = './io/lists/'
+output_path = './lists/'
 limit = -1
 #limit = 5
 
