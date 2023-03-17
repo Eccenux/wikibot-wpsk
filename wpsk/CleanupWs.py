@@ -11,6 +11,8 @@ class CleanupWs(Cleanup):
 	):
 		super().__init__(site, output_path)
 		self.run_parser_fixes = False
+		# description of change prefix (desc added in summary)
+		self.desc_prefix = 'BeepBeep:'
 
 	def _can_fix_tpls(self,
 		page_code: Wikicode,
