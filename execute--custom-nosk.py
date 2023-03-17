@@ -54,6 +54,16 @@ def extra_change(page_text: str, summary: list):
 	(page_text, change_count_re) = re.subn(r"\{Wikipedysta:XaxeLoled\/Szablony konkursowe\/Konkurs 8", r"{Wydarzenia/Wydarzenia/CEE Spring 2022", page_text)
 	change_count += change_count_re
 
+	# ["Wikipedysta:XaxeLoled/Szablony konkursowe"]
+	# (page_text, change_count_re) = re.subn(r"/Konkurs 10", r"Szablon:Wydarzenia/Miesiąc Wyróżnionego Artykułu 2022", page_text)
+	# change_count += change_count_re
+	# (page_text, change_count_re) = re.subn(r"/Konkurs 9", r"Szablon:Wydarzenia/Wikiolimpiada 2022", page_text)
+	# change_count += change_count_re
+	# (page_text, change_count_re) = re.subn(r"/Konkurs 11", r"Szablon:Wydarzenia/Święta 2022", page_text)
+	# change_count += change_count_re
+	# (page_text, change_count_re) = re.subn(r"/Konkurs 8", r"Szablon:Wydarzenia/Wydarzenia/CEE Spring 2022", page_text)
+	# change_count += change_count_re
+
 	if change_count >= 1:
 		summary.append('porządki [[Szablon:Wydarzenia]]')
 		return (change_count, page_text)
