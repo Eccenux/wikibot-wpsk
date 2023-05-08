@@ -26,7 +26,7 @@ Cleanup.initdir(output_path)
 ##
 # extra setup
 ##
-wpsk.min_fix_count = 1
+wpsk.min_fix_count = 2 # min 2 fixes, but count extra changes x2
 
 # custom change class
 class CustomChange:
@@ -50,7 +50,7 @@ def extra_change(page_text: str, summary: list):
 		change_count += change_count_re
 	if change_count >= 1:
 		summary.append(change_summary)
-		return (change_count, page_text)
+		return (change_count * 2, page_text)
 	return (0, "")
 
 wpsk.extra_changes.append(extra_change)
