@@ -1,5 +1,5 @@
 """
-	Download whatlinkshere pages list (linkujące).
+	Download whatlinkshere pages list (zagnieżdżone/użyte szablony, albo linkujące).
 """
 
 import pywikibot, re
@@ -30,13 +30,14 @@ def download(tpl, base_path, list_name, append = True):
 
 	
 	# template inclusions
-	#generator = list_template_embedded(site, tpl, content=False)
+	# generator = list_template_embedded(site, tpl, content=False)
+	generator = list_template_embedded(site, tpl, content=False, namespaces=[0])
 
 	# all links but filtered
 	tpl_page = get_template_page(site, tpl)
-	generatorLinks = tpl_page.backlinks()
-	# skip technical/arch pages
-	generator = RegexFilter.titlefilter(generatorLinks, r'^(Wikiprojekt:Sprzątanie szablonów|Wikipedysta:PBbot)/', quantifier='none', ignore_namespace=False)
+	# generatorLinks = tpl_page.backlinks()
+	# # skip technical/arch pages
+	# generator = RegexFilter.titlefilter(generatorLinks, r'^(Wikiprojekt:Sprzątanie szablonów|Wikipedysta:PBbot)/', quantifier='none', ignore_namespace=False)
 
 	# download & save
 	counter = 0
@@ -67,16 +68,17 @@ def download(tpl, base_path, list_name, append = True):
 	logging.info(summary)
 	
 
-"""
+# """
+list_name = "bio_zima_links.py"
 tpls = [
-	"Zapaśnicy Węgier na igrzyskach olimpijskich – Amsterdam 1928",
-	"Zapaśnicy Węgier na igrzyskach olimpijskich – Atlanta 1996",
-	"Zapaśnicy Węgier na igrzyskach olimpijskich – Barcelona 1992",
+	"Zawodnik zima infobox",
+	# "Zapaśnicy Węgier na igrzyskach olimpijskich – Atlanta 1996",
+	# "Zapaśnicy Węgier na igrzyskach olimpijskich – Barcelona 1992",
 ]
 #"""
 
-list_name = "other_io_links.py"
-from lists.other_io_tpls import pages as tpls
+# list_name = "other_io_links.py"
+# from lists.other_io_tpls import pages as tpls
 
 # """
 append = False
