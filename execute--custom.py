@@ -28,38 +28,28 @@ Cleanup.initdir(output_path)
 ##
 wpsk.min_fix_count = 1
 
-# Judocy Austrii na igrzyskach olimpijskich - Ateny 2004
-# Judocy Austrii na IGRZYSKACH OLIMPIJSKICH – Ateny 2004
-# Zapaśnicy Wielkiej Brytanii na Igrzyskach Olimpijskich – Atlanta 1996
-# change_pattern = re.compile(r"([\wzażółćgęśląjaźń]+ [^}\[\]\n]+ na) igrzyskach olimpijskich [–-] ", re.IGNORECASE)
+# custom change class
+class CustomChange:
+    def __init__(self, f, t):
+        self.from_re = re.compile(f)
+        self.into = t
 
-# original name
-change_before = [
-	r"(Bokserzy Polski na Letnich Igrzyskach Olimpijskich) - (Atlanta 1996)",
-	r"(Bokserzy Rosji na Letnich Igrzyskach Olimpijskich) - (Atlanta 1996)",
-	r"(Bokserzy Rumunii na Letnich Igrzyskach Olimpijskich) - (Atlanta 1996)",
-	r"(IO Australia 2020) - (kobiety)",
-	r"(IO Belgia 2020) - (kobiety)",
-	r"(IO Francja 2020) - (kobiety)",
-	r"(IO Kanada 2020) - (kobiety)",
-	r"(IO Serbia 2020) - (kobiety)",
-	r"(IO USA 2020) - (kobiety)",
-	r"(Mistrzowie olimpijscy w kombinacji norweskiej) - (duża skocznia)",
-	r"(Piłka siatkowa na LIO 2012) - (kwalifikacje)",
+# change config
+change_summary = 'kolory top3'
+changes_list = [
+	CustomChange(f=r"(?i)\|- ?bgcolor=[\"']?gold[\"']?", t=r"|-bgcolor=ffffbf"),
+	CustomChange(f=r"(?i)\|- ?bgcolor=[\"']?silver[\"']?", t=r"|-bgcolor=dfdfdf"),
+	CustomChange(f=r"(?i)\|- ?bgcolor=[\"']?CC9966[\"']?", t=r"|-bgcolor=ffdf9f"),
 ]
-change_regexs = []
-for change_pattern in change_before:
-	#change_regexs.append(re.compile(change_pattern, re.IGNORECASE))
-	change_regexs.append(re.compile(change_pattern))
 
 # change
 def extra_change(page_text: str, summary: list):
 	change_count = 0
-	for change_re in change_regexs:
-		(page_text, change_count_re) = change_re.subn(r"\1 – \2", page_text)
+	for change in changes_list:
+		(page_text, change_count_re) = change.from_re.subn(change.into, page_text)
 		change_count += change_count_re
 	if change_count >= 1:
-		summary.append('sz-nazwa')
+		summary.append(change_summary)
 		return (change_count, page_text)
 	return (0, "")
 
@@ -85,7 +75,7 @@ for page_title in pages:
 	wpsk.fix_page(page_title, dryRun=True)
 """
 # list of lists
-from lists.other_io_links import pages as pages_lists
+from lists.bio_zima_links import pages as pages_lists
 skipped = []
 done_already = []
 for pages in pages_lists:
