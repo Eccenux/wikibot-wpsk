@@ -36,19 +36,38 @@ wpsk.min_fix_count = 1
 def extra_change(page_text: str, summary: list):
 	change_count = 0
 
+	##
+	# składy klubów
+	##
+	summary_text = 'obecny może być mylące'
 	(page_text, change_count_re) = re.subn(
-		r'https?://tools\.wmflabs\.org/supercount/(?:index\.php)?\?user=([^&]+)&project=([a-z]+\.wiki[pm]edia)(&[a-z0-9=&]+)?',
-		r'https://xtools.wmcloud.org/ec/\2/\1',
-		page_text
-	)
-	change_count += change_count_re
-	(page_text, change_count_re) = re.subn(
-		r'http://tools\.wmflabs\.org/xtools/pages/(?:index\.php)?\?user=([^&]+)&lang=pl&wiki=wikipedia&namespace=0&getall=1&redirects=noredirects',
-		r'https://xtools.wmcloud.org/pages/pl.wikipedia.org/\1',
+		r'\| ?tytuł ?= ?(\[\[[^]]+\]\]) [–\-] obecny skład',
+		r'| tytuł = skład \1',
 		page_text
 	)
 	change_count += change_count_re
 
+	##
+	# xtools
+	##
+	# summary_text = 'supercount/xtools url'
+	# (page_text, change_count_re) = re.subn(
+	# 	r'https?://tools\.wmflabs\.org/supercount/(?:index\.php)?\?user=([^&]+)&project=([a-z]+\.wiki[pm]edia)(&[a-z0-9=&]+)?',
+	# 	r'https://xtools.wmcloud.org/ec/\2/\1',
+	# 	page_text
+	# )
+	# change_count += change_count_re
+	# (page_text, change_count_re) = re.subn(
+	# 	r'http://tools\.wmflabs\.org/xtools/pages/(?:index\.php)?\?user=([^&]+)&lang=pl&wiki=wikipedia&namespace=0&getall=1&redirects=noredirects',
+	# 	r'https://xtools.wmcloud.org/pages/pl.wikipedia.org/\1',
+	# 	page_text
+	# )
+	# change_count += change_count_re
+
+	##
+	# Szablony konkursowe cleanup
+	##
+	# summary_text = 'porządki [[Szablon:Wydarzenia]]'
 	# "Wikipedysta:XaxeLoled/Szablony konkursowe/Konkurs 10" została przeniesiona do "Szablon:Wydarzenia/Miesiąc Wyróżnionego Artykułu 2022".
 	# search:
 	# https://pl.wikipedia.org/w/index.php?search=hastemplate%3A%22Wikipedysta%3AXaxeLoled%2FSzablony+konkursowe%2FKonkurs+10%22&title=Specjalna:Szukaj&profile=advanced&fulltext=1&advancedSearch-current=%7B%22fields%22%3A%7B%22hastemplate%22%3A%5B%22Wikipedysta%3AXaxeLoled%2FSzablony+konkursowe%2FKonkurs+10%22%5D%7D%7D&ns4=1
@@ -77,8 +96,7 @@ def extra_change(page_text: str, summary: list):
 	# change_count += change_count_re
 
 	if change_count >= 1:
-		# summary.append('porządki [[Szablon:Wydarzenia]]')
-		summary.append('supercount/xtools url')
+		summary.append(summary_text)
 		return (change_count, page_text)
 	return (0, "")
 
