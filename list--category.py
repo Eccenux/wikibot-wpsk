@@ -29,7 +29,8 @@ def download(category, base_path, list_name, append = True):
 
 	# download & save
 	catPage = pywikibot.Category(site, category)
-	generator = catPage.articles(namespaces=[10])	# tpls only
+	# generator = catPage.articles(namespaces=[10])	# tpls only
+	generator = catPage.articles(namespaces=[0])	# main only
 	counter = 0
 	errors = 0
 	pages = []
@@ -60,11 +61,13 @@ def download(category, base_path, list_name, append = True):
 
 # """
 categories = [
-	"Kategoria:Szablony nawigacyjne - zapasy na igrzyskach olimpijskich",
+	# "Kategoria:Szablony nawigacyjne - zapasy na igrzyskach olimpijskich",
+	"Kategoria:Nieobsługiwana nazwa przypisu R",
 ]
 #"""
 
-list_name = "zapasnicy_tpls_all.py"
+# list_name = "zapasnicy_tpls_all.py"
+list_name = "cat_dump_list.py"
 
 # """
 append = False
