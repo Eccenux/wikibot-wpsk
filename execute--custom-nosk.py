@@ -37,17 +37,6 @@ def extra_change(page_text: str, summary: list):
 	change_count = 0
 
 	##
-	# składy klubów
-	##
-	summary_text = 'obecny może być mylące'
-	(page_text, change_count_re) = re.subn(
-		r'\| ?tytuł ?= ?(\[\[[^]]+\]\]) [–\-] obecny skład',
-		r'| tytuł = skład \1',
-		page_text
-	)
-	change_count += change_count_re
-
-	##
 	# xtools
 	##
 	# summary_text = 'supercount/xtools url'
@@ -94,6 +83,17 @@ def extra_change(page_text: str, summary: list):
 	# change_count += change_count_re
 	# (page_text, change_count_re) = re.subn(r"/Konkurs 8", r"Szablon:Wydarzenia/Wydarzenia/CEE Spring 2022", page_text)
 	# change_count += change_count_re
+
+	##
+	# Migracja na nowy [[szablon:CW/weryfikacja]].
+	##
+	summary_text = 'Migracja na nowy [[szablon:CW/weryfikacja]].'
+	(page_text, change_count_re) = re.subn(
+		r"\{\{Wikiprojekt:Czy wiesz/weryfikacja",
+		"{{subst:CW/migracja",
+		page_text
+	)
+	change_count += change_count_re
 
 	if change_count >= 1:
 		summary.append(summary_text)
