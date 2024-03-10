@@ -36,7 +36,7 @@ def download(page_title, base_path, list_name, append = True):
 	generatorLinks = tpl_page.itertemplates()
 	# generator = generatorLinks
 	# only pages matching this
-	generator = RegexFilter.titlefilter(generatorLinks, r'^Wikipedia:Poczekalnia/.+/2022\:', quantifier='all', ignore_namespace=False)
+	generator = RegexFilter.titlefilter(generatorLinks, r'^Wikipedia:Poczekalnia/.+/202[34]\:', quantifier='all', ignore_namespace=False)
 
 	# download & save
 	counter = 0

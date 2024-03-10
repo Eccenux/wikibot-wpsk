@@ -1,5 +1,5 @@
 """
-	Custom change(s) with a BotSK.
+	Custom change(s) without the BotSK.
 
 	Makes a backup of before-after contents.
 
@@ -33,8 +33,8 @@ wpsk.min_fix_count = 1
 
 # original name
 change_before = [
-	#r"(\{\{[eE]pub\}\})[ \t]*([\r\n]* ?\{\{([cC]ałość|[eE]pub))",
-	r"===(.+)===",
+	# r"===(.+)===",
+	r"(\{\{[lL]nDNU\|[^}]+)\}\}",
 ]
 change_regexs = []
 for change_pattern in change_before:
@@ -45,10 +45,10 @@ for change_pattern in change_before:
 def extra_change(page_text: str, summary: list):
 	change_count = 0
 	for change_re in change_regexs:
-		(page_text, change_count_re) = change_re.subn(r"==\1==", page_text)
+		(page_text, change_count_re) = change_re.subn(r"\1|strona={{subst:FULLPAGENAME}}}}", page_text)
 		change_count += change_count_re
 	if change_count >= 1:
-		summary.append('h3 na h2')
+		summary.append('podstrona do lnDNU')
 		return (change_count, page_text)
 	return (0, "")
 
@@ -71,8 +71,8 @@ for pages in pages_lists:
 		if page_title in done_already:
 			print (f'Duplicate page: {page_title}')
 			continue
-		changed = wpsk.fix_page(page_title, dryRun=True)
-		#changed = wpsk.fix_page(page_title, dryRun=False)
+		# changed = wpsk.fix_page(page_title, dryRun=True)
+		changed = wpsk.fix_page(page_title, dryRun=False)
 		if not changed:
 			skipped.append(page_title)
 		else:
