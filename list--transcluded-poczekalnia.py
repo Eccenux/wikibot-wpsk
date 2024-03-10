@@ -22,6 +22,19 @@ limit = -1
 # init dir
 import os
 
+# """
+tpls = [
+	# "Wikipedia:Poczekalnia/artykuły",
+	# "Wikipedia:Poczekalnia/biografie",
+	# "Wikipedia:Poczekalnia/kwestie techniczne",
+	"Wikipedia:Poczekalnia/reanimacja",
+	# "Wikipedia:Poczekalnia/kwestie techniczne załatwione 24",
+	# "Wikipedia:Poczekalnia/biografie załatwione 24",
+	# "Wikipedia:Poczekalnia/artykuły załatwione 24",
+]
+#"""
+
+
 # download list of transcluded page (templates)
 def download(page_title, base_path, list_name, append = True):
 	print('\nPage:', page_title)
@@ -68,16 +81,6 @@ def download(page_title, base_path, list_name, append = True):
 	logging.info(summary)
 	
 
-# """
-tpls = [
-	"Wikipedia:Poczekalnia/artykuły",
-	"Wikipedia:Poczekalnia/biografie",
-	"Wikipedia:Poczekalnia/kwestie techniczne",
-	"Wikipedia:Poczekalnia/kwestie techniczne załatwione 24",
-	"Wikipedia:Poczekalnia/biografie załatwione 24",
-	"Wikipedia:Poczekalnia/artykuły załatwione 24",
-]
-#"""
 
 list_name = "poczekalnia_links.py"
 # from lists.poczekalnia_tpls import pages as tpls

@@ -31,22 +31,27 @@ Cleanup.initdir(output_path)
 ##
 wpsk.min_fix_count = 1
 
-# original name
-change_before = [
-	# r"===(.+)===",
-	r"(\{\{[lL]nDNU\|[^}]+)\}\}",
+##
+# changes spec
+##
+change_regexs = [
+	{
+		"re": re.compile(r"(\{\{[lL]nDNU\|[^}]+)\|\s*strona=[^}|]+([^}]*\}\})"),
+		"to": r"\1\2",
+		"mul": 1,
+	},
+	{
+		"re": re.compile(r"(\{\{[lL]nDNU\|[^}]+)\}\}"),
+		"to": r"\1|strona={{subst:FULLPAGENAME}}}}",
+		"mul": 1,
+	},
 ]
-change_regexs = []
-for change_pattern in change_before:
-	#change_regexs.append(re.compile(change_pattern, re.IGNORECASE))
-	change_regexs.append(re.compile(change_pattern))
-
 # change
 def extra_change(page_text: str, summary: list):
 	change_count = 0
-	for change_re in change_regexs:
-		(page_text, change_count_re) = change_re.subn(r"\1|strona={{subst:FULLPAGENAME}}}}", page_text)
-		change_count += change_count_re
+	for change in change_regexs:
+		(page_text, change_count_re) = change['re'].subn(change['to'], page_text)
+		change_count += change_count_re * change['mul']
 	if change_count >= 1:
 		summary.append('podstrona do lnDNU')
 		return (change_count, page_text)
@@ -71,8 +76,8 @@ for pages in pages_lists:
 		if page_title in done_already:
 			print (f'Duplicate page: {page_title}')
 			continue
-		# changed = wpsk.fix_page(page_title, dryRun=True)
-		changed = wpsk.fix_page(page_title, dryRun=False)
+		changed = wpsk.fix_page(page_title, dryRun=True)
+		# changed = wpsk.fix_page(page_title, dryRun=False)
 		if not changed:
 			skipped.append(page_title)
 		else:
